@@ -30,6 +30,10 @@ public class ManageController {
         return "attrListPage";
     }
 
+    /**
+     * 获得一级分类
+     * @return
+     */
     @RequestMapping("getCatalog1")
     @ResponseBody
     public List<BaseCatalog1> getCatalog1(){
@@ -39,6 +43,11 @@ public class ManageController {
         return catalog1List;
     }
 
+    /**
+     * 获得两级分类
+     * @param map
+     * @return
+     */
     @RequestMapping("getCatalog2")
     @ResponseBody
     public List<BaseCatalog2> getCatalog2(@RequestParam Map<String,String> map){
@@ -48,6 +57,12 @@ public class ManageController {
         return catalog2List;
     }
 
+
+    /**
+     * 获得三级分类
+     * @param map
+     * @return
+     */
     @RequestMapping("getCatalog3")
     @ResponseBody
     public List<BaseCatalog3> getCatalog3(@RequestParam Map<String,String> map){
@@ -57,6 +72,11 @@ public class ManageController {
         return catalog3List;
     }
 
+    /**
+     * 获得属性列表
+     * @param map
+     * @return
+     */
     @RequestMapping("baseAttrInfo")
     @ResponseBody
     public List<BaseAttrInfo> baseAttrInfo(@RequestParam Map<String,String> map){
