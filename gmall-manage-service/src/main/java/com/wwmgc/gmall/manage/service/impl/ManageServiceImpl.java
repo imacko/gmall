@@ -1,14 +1,8 @@
 package com.wwmgc.gmall.manage.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.wwmgc.gmall.bean.BaseAttrInfo;
-import com.wwmgc.gmall.bean.BaseCatalog1;
-import com.wwmgc.gmall.bean.BaseCatalog2;
-import com.wwmgc.gmall.bean.BaseCatalog3;
-import com.wwmgc.gmall.manage.mapper.BaseAttrInfoMapper;
-import com.wwmgc.gmall.manage.mapper.BaseCatalog1Mapper;
-import com.wwmgc.gmall.manage.mapper.BaseCatalog2Mapper;
-import com.wwmgc.gmall.manage.mapper.BaseCatalog3Mapper;
+import com.wwmgc.gmall.bean.*;
+import com.wwmgc.gmall.manage.mapper.*;
 import com.wwmgc.gmall.service.ManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,6 +19,9 @@ public class ManageServiceImpl implements ManageService {
     private  BaseCatalog3Mapper baseCatalog3Mapper;
     @Autowired
     private BaseAttrInfoMapper baseAttrInfoMapper;
+    @Autowired
+    private SpuInfoMapper spuInfoMapper;
+
 
 
 
@@ -58,5 +55,12 @@ public class ManageServiceImpl implements ManageService {
         baseAttrInfo.setCatalog3Id(catalog3Id);
         List<BaseAttrInfo> baseAttrInfoList = baseAttrInfoMapper.select(baseAttrInfo);
         return baseAttrInfoList;
+    }
+
+    @Override
+    public List<SpuInfo> spuList(String catalog3Id) {
+        SpuInfo spuInfo = new SpuInfo();
+        spuInfo.setCatalog3Id(catalog3Id);
+        return spuInfoMapper.select(spuInfo);
     }
 }

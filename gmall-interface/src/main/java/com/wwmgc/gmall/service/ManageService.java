@@ -1,9 +1,6 @@
 package com.wwmgc.gmall.service;
 
-import com.wwmgc.gmall.bean.BaseAttrInfo;
-import com.wwmgc.gmall.bean.BaseCatalog1;
-import com.wwmgc.gmall.bean.BaseCatalog2;
-import com.wwmgc.gmall.bean.BaseCatalog3;
+import com.wwmgc.gmall.bean.*;
 
 import java.util.List;
 
@@ -16,4 +13,6 @@ public interface ManageService {
     List<BaseCatalog3> getCatalog3(String catalog2Id);
 
     List<BaseAttrInfo> baseAttrInfo(String catalog3Id);
+
+    List<SpuInfo> spuList(String catalog3Id);
 }
