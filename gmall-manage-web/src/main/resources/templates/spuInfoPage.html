@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="dlg" class="easyui-dialog" title="编辑属性" style="width:600px;height:500px;"
+     closed="true"  data-options="iconCls:'icon-save',resizable:true,modal:true" buttons="#bb" >
+    <form id="attrForm">
+        <br/>
+        <label>spu名称:</label>
+        <input  id="spuName" name="spuName" class="easyui-textbox" data-options="" style="width:100px"/>
+        <br/>
+        <label>spu描述:</label>
+        <input  id="description" name="description" class="easyui-textbox" data-options="" style="width:300px"/>
+        <input  id="spuId" name="spuId" type="hidden"  />
+        <br/><br/>
+        <table id="tm_av" class="easyui-datagrid" title="商品图片列表"></table>
+        <br/>
+        <table id="dg_av" class="easyui-datagrid" title="列表"></table>
+    </form>
+</div>
+</body>
+<script language="JavaScript">
+    function addSpuInfo() {
+        if(!checkBeforeDialog()){
+            return ;
+        }
+        //进系统前先清空
+        $("#spuId").val("");
+        $("#spuName").textbox('clear');
+        $('#dg_av').datagrid({url:''});
+        // 初始化datagrid
+        initSpuInfoDlg();
+
+        $("#dlg").dialog("open");
+    }
+
+    function checkBeforeDialog(){
+        var ctg3val = $("#ctg3ForSpuList").combobox('getValue');
+        if(ctg3val==''){
+            $.messager.alert('警告','请先选择三级分类','warning');
+            return false;
+        }
+        return true;
+    }
+    
+    function initSpuInfoDlg() {
+        $('#dg_av').datagrid('loadData', { total: 0, rows: [] });
+        datagrid = $("#dg_av").datagrid({
+            columns:[[
+                { field:'id',title:'销售属性id',width:'20%'},
+                { field:'valueName',title:'销售属性名称',width:'40%',
+                    editor: {
+                        type: 'validatebox', options: { required: true}  //必填项
+                    }
+                },
+                { field:'id',title:'销售属性值暂存',width:'40%'}
+            ]],
+            toolbar:[{text:'添加销售属性',iconCls:'icon-add',
+                handler:function () {
+                    datagrid.datagrid('appendRow',{id:'',valueName:''});
+                }
+            },'-',
+                {text:'编辑销售属性',iconCls:'icon-edit',
+                    handler:function () {
+
+
+                    }
+                },
+                {text:'删除',iconCls:'icon-remove',
+                    handler:function () {
+                        var row = datagrid.datagrid('getSelected');
+                        if (row) {
+                            var rowIndex = datagrid.datagrid('getRowIndex', row);
+                            datagrid.datagrid('deleteRow', rowIndex);
+                        }
+                    }
+                }],
+            onDblClickRow: function (rowIndex, rowData) {
+                //双击开启编辑行
+                datagrid.datagrid("beginEdit", rowIndex);
+                //设定当失去焦点时,退出编辑状态
+                var valueName = rowData.valueName;
+                $("input.datagrid-editable-input").val(valueName).bind("blur",function(evt){
+                    datagrid.datagrid('endEdit',rowIndex);
+                });
+            }
+        });
+    }
+    
+</script>
+</html>

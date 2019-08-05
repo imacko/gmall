@@ -1,13 +1,11 @@
 package com.wwmgc.gmall.manage.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.wwmgc.gmall.bean.BaseAttrInfo;
-import com.wwmgc.gmall.bean.BaseCatalog1;
-import com.wwmgc.gmall.bean.BaseCatalog2;
-import com.wwmgc.gmall.bean.BaseCatalog3;
+import com.wwmgc.gmall.bean.*;
 import com.wwmgc.gmall.service.ManageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -88,4 +86,20 @@ public class ManageController {
         return baseAttrInfoList;
     }
 
+    @RequestMapping(value = "saveAttrInfo",method = RequestMethod.POST)
+    @ResponseBody
+    public String saveAttrInfo(BaseAttrInfo baseAttrInfo){
+        manageService.saveAttrInfo(baseAttrInfo);
+        return "success";
+    }
+
+
+    @RequestMapping("getAttrValueList")
+    @ResponseBody
+    public List<BaseAttrValue> getAttrValueList(@RequestParam Map<String,String> map){
+        String attrId = map.get("attrId");
+        List<BaseAttrValue> baseAttrValueList = manageService.getAttrValueList(attrId);
+
+        return baseAttrValueList;
+    }
 }

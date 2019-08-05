@@ -15,4 +15,8 @@ public interface ManageService {
     List<BaseAttrInfo> baseAttrInfo(String catalog3Id);
 
     List<SpuInfo> spuList(String catalog3Id);
+
+    void saveAttrInfo(BaseAttrInfo baseAttrInfo);
+
+    List<BaseAttrValue> getAttrValueList(String attrId);
 }
